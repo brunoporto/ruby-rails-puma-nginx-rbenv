@@ -155,6 +155,7 @@ if ! type nginx > /dev/null 2>&1; then
   sudo apt-get -qq update
   sudo apt-get install nginx -y
   sudo update-rc.d nginx defaults
+  sudo service nginx start
   echo -e '\e[42m----------- NGINX INSTALADO -------------\e[0m'
   echo -e '\e[45m----------- PREPARANDO MODELO PUMA RAILS APP EM NGINX SITES -------------\e[0m'
   sudo touch /etc/nginx/sites-available/rails.sample
@@ -191,6 +192,5 @@ else
   echo -e "\e[43m----------- ${NGINXV}\e[0m"
 fi
 
-
-
 echo -e '\e[44m----------- INSTALAÇÃO FINALIZADA -------------\e[0m'
+echo -e '\e[44mACESSE https://github.com/brunoporto/ruby-rails-puma-nginx-rbenv E VEJA O README \e[0m'
