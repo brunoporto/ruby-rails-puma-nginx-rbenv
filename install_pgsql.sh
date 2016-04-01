@@ -63,22 +63,25 @@ else
 	echo -e "\e[43m----------- ${PSQLV}\e[0m"
 fi
 
-
-read -p "Deseja criar um novo usuário? " -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-	echo "Informe o nome do usuário e aperte [ENTER]:"
-	read userpgsql
-	echo "$(sudo -u postgres createuser -s $userpgsql)"
-	echo "$(sudo -u postgres psql)"
-	echo "$(\password $userpgsql")
-	echo "$(\q)"
-	echo -e "\e[42m----------- SUPER-USUARIO $userpgsql ADICIONADO -------------\e[0m"
-fi
+while true; do
+    read -p "Deseja criar um novo usuário? [y/n]" yn
+    case $yn in
+        [Yy]* ) 
+		read -p "Informe o nome do usuário e aperte [ENTER]: " userpgsql
+		{
+			sudo -u postgres createuser -s ${userpgsql} &&
+			sudo -u postgres psql --command "\password $userpgsql"
+			echo -e "\e[42m----------- SUPER-USUARIO $userpgsql ADICIONADO -------------\e[0m"
+		} || {
+			echo ""
+		}
+	;;
+        [Nn]* ) exit;;
+        * ) echo "Informe y(sim) ou n(não).";;
+    esac
+done
 
 echo -e '\e[44m----------- INSTALAÇÃO FINALIZADA -------------\e[0m'
 echo "* Para mais informações sobre o comando de criação de usuário, digite: man createuser"
-
 
 
