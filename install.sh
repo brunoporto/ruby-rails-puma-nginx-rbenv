@@ -192,5 +192,14 @@ else
   echo -e "\e[43m----------- ${NGINXV}\e[0m"
 fi
 
+if [ ! -d "$HOME/.ssh/id_rsa.pub" ]; then
+	echo -e '\e[45m----------- INSTALANDO SSH KEY -------------\e[0m'
+	echo -e "\n\n\n" | ssh-keygen -t rsa
+	eval "$(ssh-agent -s)"
+	ssh-add ~/.ssh/id_rsa
+fi
+echo -e '\e[41m----------- CHAVE SSH GERADA -------------\e[0m'
+cat ~/.ssh/id_rsa.pub
+
 echo -e '\e[44m----------- INSTALAÇÃO FINALIZADA -------------\e[0m'
 echo -e '\e[44mACESSE https://github.com/brunoporto/ruby-rails-puma-nginx-rbenv E VEJA O README \e[0m'
