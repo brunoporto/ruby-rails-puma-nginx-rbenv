@@ -168,7 +168,6 @@ if ! type nginx > /dev/null 2>&1; then
   sudo touch /etc/nginx/sites-available/rails.sample
   sudo cat <<EOF >> /etc/nginx/sites-available/rails.sample
 upstream app {
-    # Path to Puma SOCK file, as defined previously
     server unix:/home/deploy/appname/shared/sockets/puma.sock fail_timeout=0;
 }
 
@@ -178,12 +177,12 @@ server {
 
     root /home/deploy/appname/public;
 
-    try_files $uri/index.html $uri @app;
+    try_files \$uri/index.html \$uri @app;
 
     location @app {
         proxy_pass http://app;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header Host $http_host;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header Host \$http_host;
         proxy_redirect off;
     }
 
