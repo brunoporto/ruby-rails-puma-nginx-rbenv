@@ -6,9 +6,16 @@ VRAILS="4.2.6"
 clear
 echo -e "\e[44m------- INICIANDO INSTALACAO RUBY $VRUBY E RAILS $VRAILS -------------\e[0m"
 
+echo -e '\e[45m------- CRIANDO USUÁRIO DEPLOY ----------\e[0m'
+sudo adduser deploy
+sudo adduser deploy sudo
+su deploy
+
 echo -e '\e[45m------- ATUALIZANDO BIBLIOTECAS NECESSARIAS ----------\e[0m'
 sudo apt-get -qq update
 sudo apt-get install -y git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev
+sudo apt-get update
+sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev
 
 cd $HOME
 
@@ -64,6 +71,7 @@ if ! type ruby > /dev/null 2>&1; then
   ruby -v
   echo "gem: --no-ri --no-rdoc" > ~/.gemrc
   gem install bundler
+  rbenv rehash
   echo -e '\e[42m----------- RUBY INSTALADO -------------\e[0m'
 else
   echo -e '\e[41m----------- JA POSSUI RUBY -------------\e[0m'
@@ -73,9 +81,8 @@ fi
 
 if ! type node > /dev/null 2>&1; then
   echo -e '\e[45m-------- INSTALANDO NODE.JS ---------------\e[0m'
-  sudo add-apt-repository ppa:chris-lea/node.js -y
-  sudo apt-get -qq update
-  sudo apt-get install nodejs -y
+  curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+  sudo apt-get install -y nodejs
   echo -e '\e[42m----------- NODE.JS INSTALADO -------------\e[0m'
 else
   echo -e '\e[41m----------- JA POSSUI NODE.JS -------------\e[0m'

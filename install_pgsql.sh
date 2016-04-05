@@ -53,7 +53,7 @@ if ! type psql > /dev/null 2>&1; then
 
 	wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
 	sudo apt-get -qq update
-	echo "$(sudo apt-get -qq install -y postgresql-$PGV)"
+	echo "$(sudo apt-get -qq install -y postgresql-$PGV postgresql-contrib-$PGV libpq-dev)"
 
 	echo -e "\e[42m----------- POSTGRESQL $PGV INSTALADO INSTALADO -------------\e[0m"
 
