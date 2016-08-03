@@ -21,7 +21,7 @@ cd $HOME
 
 if [ ! -d "$HOME/.rbenv" ]; then
   echo -e '\e[45m------- INSTALANDO RBENV ----------\e[0m'
-  git clone git://github.com/sstephenson/rbenv.git .rbenv
+  git clone git://github.com/sstephenson/rbenv.git ~/.rbenv
   echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
   echo 'eval "$(rbenv init -)"' >> ~/.bashrc
   #exec $SHELL
